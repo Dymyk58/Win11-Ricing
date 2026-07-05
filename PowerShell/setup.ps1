@@ -1,13 +1,11 @@
-#requires -RunAsAdministrator
 #requires -Version 7.0
 
 $ErrorActionPreference = "Stop"
 $repoRaw = "https://raw.githubusercontent.com/Dymyk58/Win11-Ricing/main/PowerShell"
 
 try {
-    $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-    if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-        throw "This script requires administrator privileges. Open Windows Terminal / PowerShell via 'Run as administrator' and try again."
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        throw "winget nie je dostupny. Nainstaluj 'App Installer' z Microsoft Store a skript spusti znova."
     }
 
     $wingetApps = @(
@@ -18,6 +16,10 @@ try {
     )
     foreach ($app in $wingetApps) {
         winget install --id $app --source winget --silent --accept-package-agreements --accept-source-agreements | Out-Null
+        if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335189) {
+            # -1978335189 = APPINSTALLER_CLI_ERROR_NO_APPLICABLE_UPDATE_FOUND (uz je nainstalovane najnovsie)
+            throw "Instalacia balicka '$app' zlyhala (exit code $LASTEXITCODE)."
+        }
     }
 
     if ((Get-PSRepository -Name PSGallery).InstallationPolicy -ne 'Trusted') {
@@ -27,7 +29,7 @@ try {
 
     $env:Path += ";$Env:LOCALAPPDATA\Programs\oh-my-posh\bin"
 
-    [System.Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', '1', 'Machine')
+    [System.Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', '1', 'User')
 
     if (-not (Test-Path (Split-Path $PROFILE))) {
         New-Item -ItemType Directory -Path (Split-Path $PROFILE) -Force | Out-Null
