@@ -84,6 +84,9 @@ Invoke-WebRequest -Uri "$repoRaw/Microsoft.PowerShell_profile.ps1" -OutFile $PRO
 
 # oh-my-posh tema (Catppuccin Macchiato) - profil na nu odkazuje ako $Home\catppuccin_macchiato.omp.json
 $theme = Join-Path $Home "catppuccin_macchiato.omp.json"
+if (Test-Path $theme) {
+    attrib -h $theme
+}
 Backup-IfExists $theme
 Invoke-WebRequest -Uri "$repoRaw/catppuccin_macchiato.omp.json" -OutFile $theme
 attrib +h $theme
