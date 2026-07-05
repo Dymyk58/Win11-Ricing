@@ -25,7 +25,7 @@ Other
 
 | 📚 Entry | ✨ App |
 |---------------------|------------|
-| Colorscheme         | [Catppuccin Mocha](https://catppuccin.com) |
+| Colorscheme         | [Catppuccin Macchiato](https://catppuccin.com) |
 | Font                | [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip) |
 
 
