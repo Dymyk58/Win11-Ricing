@@ -1,4 +1,4 @@
-### Chris Titus Tech's PowerShell profile
+### Dymyk's PowerShell profile
 
 $poshTheme = if (-not [string]::IsNullOrWhiteSpace($env:POSH_THEME)) {
     $env:POSH_THEME
@@ -42,7 +42,7 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+y' -Function Redo
 
 # Functions
 function Update-Profile {
-    Invoke-WebRequest -Uri https://github.com/ChrisTitusTech/powershell-profile/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $Profile
+    Invoke-WebRequest -Uri https://github.com/Dymyk58/Win11-Ricing/raw/main/PowerShell/Microsoft.PowerShell_profile.ps1 -OutFile $Profile
     Write-Host "Updated PowerShell Profile" -ForegroundColor Green
 }
 
@@ -103,10 +103,6 @@ function uptime {
 
 function winutil {
     Invoke-RestMethod https://christitus.com/win | Invoke-Expression
-}
-
-function winutildev {
-    Invoke-RestMethod https://christitus.com/windev | Invoke-Expression
 }
 
 # Git Shortcuts
@@ -191,7 +187,6 @@ ${dim}────────────────────────�
   ${command}uptime${reset}             ${accent}→${reset} ${desc}System uptime${reset}
   ${command}which <name>${reset}       ${accent}→${reset} ${desc}Locate command${reset}
   ${command}winutil${reset}            ${accent}→${reset} ${desc}Run WinUtil${reset}
-  ${command}winutildev${reset}         ${accent}→${reset} ${desc}Run WinUtil Dev${reset}
 
 ${dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
 "@
