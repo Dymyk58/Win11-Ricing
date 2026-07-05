@@ -3,20 +3,20 @@
 
 # =====================================================================
 #  Win11-Ricing setup.ps1
-#  Automaticky nainstaluje a nakonfiguruje: PowerShell profil,
-#  Windows Terminal settings, Fastfetch config a oh-my-posh tému
-#  Zdroj: https://github.com/Dymyk58/Win11-Ricing
+#  Automatically installs and configures: PowerShell profile,
+#  Windows Terminal settings, Fastfetch config and oh-my-posh theme
+#  Source: https://github.com/Dymyk58/Win11-Ricing
 # =====================================================================
 
 $ErrorActionPreference = "Stop"
 $repoRaw = "https://raw.githubusercontent.com/Dymyk58/Win11-Ricing/main/PowerShell"
 
-# #requires -RunAsAdministrator sa nevynuti, ked sa skript spusti cez `irm | iex`,
-# preto kontrolujeme admin prava explicitne za behu.
+# #requires -RunAsAdministrator is not enforced when the script is run via `irm | iex`,
+# so we check for admin rights explicitly at runtime.
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host "Tento skript potrebuje administratorske prava." -ForegroundColor Red
-    Write-Host "Spusti Windows Terminal / PowerShell cez 'Spustit ako spravca' a skus to znova." -ForegroundColor Yellow
+    Write-Host "This script requires administrator privileges." -ForegroundColor Red
+    Write-Host "Open Windows Terminal / PowerShell via 'Run as administrator' and try again." -ForegroundColor Yellow
     exit 1
 }
 
@@ -28,21 +28,23 @@ function Backup-IfExists($path) {
     if (Test-Path $path) {
         $backup = "$path.bak"
         Copy-Item -Path $path -Destination $backup -Force
-        Write-Host "  Zaloha vytvorena: $backup" -ForegroundColor DarkGray
+        Write-Host "  Backup created: $backup" -ForegroundColor DarkGray
+        # Clear hidden/read-only attributes so the next write (Invoke-WebRequest) doesn't fail
+        try { (Get-Item $path -Force).Attributes = 'Normal' } catch {}
     }
 }
 
 # ---------------------------------------------------------------------
-# 0. Kontroly
+# 0. Checks
 # ---------------------------------------------------------------------
 if (-not ($Env:WT_SESSION)) {
-    Write-Warning "Windows Terminal sa nezda byt aktivny terminal. Skript pokracuje, ale odporucam spustit ho z Windows Terminalu."
+    Write-Warning "Windows Terminal doesn't appear to be the active terminal. The script will continue, but it's recommended to run it from Windows Terminal."
 }
 
 # ---------------------------------------------------------------------
-# 1. Zavislosti cez winget
+# 1. Dependencies via winget
 # ---------------------------------------------------------------------
-Write-Step "Instalujem zavislosti cez winget (oh-my-posh, zoxide, Nerd Font, fastfetch)"
+Write-Step "Installing dependencies via winget (oh-my-posh, zoxide, Nerd Font, fastfetch)"
 
 $wingetApps = @(
     "JanDeDobbeleer.OhMyPosh",
@@ -57,24 +59,24 @@ foreach ($app in $wingetApps) {
     winget install --id $app --source winget --silent --accept-package-agreements --accept-source-agreements | Out-Null
 }
 
-# PowerShell modul pre ikony v termináli
+# PowerShell module for terminal icons
 if (-not (Get-Module -ListAvailable -Name Terminal-Icons)) {
-    Write-Host "  -> Terminal-Icons (PowerShell modul)"
+    Write-Host "  -> Terminal-Icons (PowerShell module)"
     Install-Module -Name Terminal-Icons -Force -Repository PSGallery -Scope CurrentUser
 }
 
-# Zapnutie oh-my-posh (ak este nie je v PATH v tejto relacii)
+# Make oh-my-posh available (in case it's not yet in PATH in this session)
 $env:Path += ";$Env:LOCALAPPDATA\Programs\oh-my-posh\bin"
 
 # ---------------------------------------------------------------------
-# 2. Vypnutie telemetrie pwsh (rovnako ako doteraz)
+# 2. Disable pwsh telemetry (same as before)
 # ---------------------------------------------------------------------
 [System.Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', '1', 'Machine')
 
 # ---------------------------------------------------------------------
-# 3. PowerShell profil
+# 3. PowerShell profile
 # ---------------------------------------------------------------------
-Write-Step "Instalujem PowerShell profil"
+Write-Step "Installing PowerShell profile"
 
 Backup-IfExists $PROFILE
 if (-not (Test-Path (Split-Path $PROFILE))) {
@@ -82,19 +84,19 @@ if (-not (Test-Path (Split-Path $PROFILE))) {
 }
 Invoke-WebRequest -Uri "$repoRaw/Microsoft.PowerShell_profile.ps1" -OutFile $PROFILE
 
-# oh-my-posh tema (Catppuccin Macchiato) - profil na nu odkazuje ako $Home\catppuccin_macchiato.omp.json
+# oh-my-posh theme (Catppuccin Macchiato) - the profile references it as $Home\catppuccin_macchiato.omp.json
 $theme = Join-Path $Home "catppuccin_macchiato.omp.json"
-if (Test-Path $theme) {
-    attrib -h $theme
-}
 Backup-IfExists $theme
+if (Test-Path $theme) {
+    Remove-Item -Path $theme -Force
+}
 Invoke-WebRequest -Uri "$repoRaw/catppuccin_macchiato.omp.json" -OutFile $theme
 attrib +h $theme
 
 # ---------------------------------------------------------------------
 # 4. Windows Terminal settings.json
 # ---------------------------------------------------------------------
-Write-Step "Instalujem Windows Terminal settings.json"
+Write-Step "Installing Windows Terminal settings.json"
 
 $wtPaths = @(
     "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json",
@@ -105,7 +107,7 @@ $wtPaths = @(
 $wtSettings = $wtPaths | Where-Object { Test-Path (Split-Path $_) } | Select-Object -First 1
 
 if (-not $wtSettings) {
-    Write-Warning "Nenasiel som priecinok Windows Terminalu. Otvor Windows Terminal aspon raz a spusti skript znova, alebo skopiruj settings.json manualne."
+    Write-Warning "Could not find the Windows Terminal folder. Open Windows Terminal at least once and run the script again, or copy settings.json manually."
 } else {
     Backup-IfExists $wtSettings
     Invoke-WebRequest -Uri "$repoRaw/settings.json" -OutFile $wtSettings
@@ -114,7 +116,7 @@ if (-not $wtSettings) {
 # ---------------------------------------------------------------------
 # 5. Fastfetch config + ascii logo
 # ---------------------------------------------------------------------
-Write-Step "Instalujem Fastfetch config"
+Write-Step "Installing Fastfetch config"
 
 $fastfetchDir = Join-Path $Home ".config\fastfetch"
 if (-not (Test-Path $fastfetchDir)) {
@@ -130,15 +132,15 @@ Backup-IfExists $fastfetchAscii
 Invoke-WebRequest -Uri "$repoRaw/config.jsonc" -OutFile $fastfetchConfig
 Invoke-WebRequest -Uri "$repoRaw/ascii.txt" -OutFile $fastfetchAscii
 
-# Oprava natvrdo zadanej cesty (C:/Users/Dymyk/...) na aktualneho pouzivatela
+# Fix the hardcoded path (C:/Users/Dymyk/...) to the current user
 $userProfileForward = $Env:USERPROFILE -replace '\\', '/'
 (Get-Content $fastfetchConfig -Raw) `
     -replace 'C:/Users/[^/"]+/\.config/fastfetch', "$userProfileForward/.config/fastfetch" |
     Set-Content $fastfetchConfig -Encoding UTF8
 
 # ---------------------------------------------------------------------
-# Hotovo
+# Done
 # ---------------------------------------------------------------------
-Write-Host "`nHotovo! Uspesne nainstalovany Win11-Ricing PowerShell setup." -ForegroundColor Green
-Write-Host "Zavri a znova otvor Windows Terminal, aby sa vsetky zmeny prejavili." -ForegroundColor Yellow
-Write-Host "V nastaveniach Windows Terminalu skontroluj, ci je font nastaveny na 'JetBrainsMono Nerd Font'." -ForegroundColor Yellow
+Write-Host "`nDone! Win11-Ricing PowerShell setup installed successfully." -ForegroundColor Green
+Write-Host "Close and reopen Windows Terminal for all changes to take effect." -ForegroundColor Yellow
+Write-Host "In Windows Terminal settings, check that the font is set to 'JetBrainsMono Nerd Font'." -ForegroundColor Yellow
