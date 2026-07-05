@@ -1,0 +1,578 @@
+watch_stylesheet: true
+watch_config: true
+debug: false
+update_check: true
+show_systray: true
+bars:
+  primary-bar:
+    enabled: true
+    screens:
+    - '*'
+    class_name: "yasb-bar"
+    alignment:
+      position: "bottom"
+      align: "center"
+    animation:
+      enabled: true
+      duration: 220
+    blur_effect:
+      enabled: false
+      dark_mode: true
+      round_corners: true
+      border_color: "None"
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+      hide_on_fullscreen: true
+    dimensions:
+      width: 100%
+      height: 38
+    padding:
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+    widgets:
+      left:
+        - "power_menu"
+        - "lines"
+        - "taskbar"
+      center:
+        - "cpu"
+        - "lines"
+        - "gpu"
+        - "lines"
+        - "memory"
+        - "lines"
+        - "disk"
+        - "lines"
+      right:
+        - "media"
+        - "lines"
+        - "volume"
+        - "lines"
+        - "brightness"
+        - "lines"
+        - "open_meteo"
+        - "lines"
+        - "clock"
+        - "lines"
+        - "language"
+        - "lines"
+        - "systray"
+        - "lines"
+        - "notifications"
+        - "bin"
+        - "wallpapers"
+        - "home"
+widgets:
+  home:
+    type: yasb.home.HomeWidget
+    options:
+      direction: up
+      label: "<span>家</span>"
+      keybindings:
+        - keys: "alt+h"
+          action: "toggle_menu"
+          screen: active
+      menu_labels:
+        about: "\uf449  About This PC"
+        system: "\U000F0493  System Settings"
+        task_manager: "\ueb03  Task Manager"
+      menu_list:
+      - { title: "\uf25d  Registry Editor", path: "C:\\Windows\\regedit.exe" }
+      - { title: "\uF15C  Event Viewer", path: "C:\\Windows\\System32\\eventvwr.msc" }
+      - { title: "\uF2DB  Device Manager", path: "C:\\Windows\\System32\\devmgmt.msc" }
+      - { title: "\uF085  Services", path: "C:\\Windows\\System32\\services.msc" }
+      - { title: "\uF200  Resource Monitor", path: "C:\\WINDOWS\\system32\\perfmon.exe" }
+      system_menu: true
+      power_menu: false
+      blur: false
+      round_corners: true
+      round_corners_type: normal
+      border_color: System
+      alignment: left
+      offset_left: -12
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: "<span>\uf017</span> {%H:%M}"
+      label_alt: "<span>\uf017</span> {%A, %d %B %Y}"
+      locale: ""
+      update_interval: 1000
+      timezones: []
+      tooltip: true
+      calendar:
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "center"
+        direction: "up"
+        offset_top: 6
+        offset_left: 0
+        show_years: true
+        show_holidays: false
+        show_week_numbers: true
+        extended: false
+      callbacks:
+        on_left: "toggle_label"
+        on_middle: "do_nothing"
+        on_right: "toggle_calendar"
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      label: "<span>{icon}</span> {level}"
+      label_alt: "Vol {volume}"
+      scroll_step: 2
+      slider_beep: false
+      tooltip: true
+      icons:
+        "muted": "\ueee8" # Icon for muted
+        "10": "\uf026"  # Icon for 0-10% volume
+        "30": "\uf027"  # Icon for 11-30% volume
+        "60": "\uf027"  # Icon for 31-60% volume
+        "100": "\uf028" # Icon for 61-100% volume
+      callbacks:
+        on_left: "toggle_volume_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_mute"
+      audio_menu:
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "up"
+        offset_top: 6
+        offset_left: 0
+        show_apps: true
+        show_app_labels: true
+        show_app_icons: true
+        show_apps_expanded: false
+  notifications:
+    type: "yasb.notifications.NotificationsWidget"
+    options:
+      label: "<span>\ueb9a</span>"
+      label_alt: "{count} notifications"
+      hide_empty: true
+      tooltip: true
+      callbacks:
+        on_left: "toggle_notification"
+        on_right: "do_nothing"
+        on_middle: "do_nothing"
+  power_menu:
+    type: "yasb.power_menu.PowerMenuWidget"
+    options:
+      label: "<span>\uf011</span>"
+      uptime: true
+      show_user: true
+      blur: false
+      blur_background: true
+      animation_duration: 120
+      button_row: 3
+      popup:
+        blur: true
+        direction: "up"
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        offset_left: 12
+      profile_image_size: 96
+      buttons:
+        lock:
+        - "\uEA75"
+        - "Lock"
+        signout:
+        - "\uDB80\uDF43"
+        - "Sign out"
+        sleep:
+        - "\u23FE"
+        - "Sleep"
+        hibernate:
+        - "\uDB82\uDD01"
+        - "Hibernate"
+        restart:
+        - "\uEAD2"
+        - "Restart"
+        shutdown:
+        - "\uF011"
+        - "Shut Down"
+        cancel:
+        - "\uDB81\uDF3A"
+        - "Cancel"
+  lines:
+    type: "yasb.custom.CustomWidget"
+    options:
+      label: "│"
+      label_alt: "│"
+      class_name: "separator-widget"
+      callbacks:
+        on_left: "do_nothing"
+  cpu:
+    type: "yasb.cpu.CpuWidget"
+    options:
+      label: "<span>󰓅</span> {info[percent][total]}%"
+      label_alt: "<span>󰓅</span> {info[freq][current]} MHz"
+      update_interval: 2000
+      cpu_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      histogram_icons:
+        - "\u2581"
+        - "\u2581"
+        - "\u2582"
+        - "\u2583"
+        - "\u2584"
+        - "\u2585"
+        - "\u2586"
+        - "\u2587"
+        - "\u2588"
+      histogram_num_columns: 8
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "exec cmd /c Taskmgr"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  memory:
+    type: "yasb.memory.MemoryWidget"
+    options:
+      label: "<span>\uefc5</span> {virtual_mem_percent}%"
+      label_alt: "<span>\uefc5</span> {virtual_mem_used}/{virtual_mem_total}"
+      update_interval: 5000
+      memory_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  disk:
+    type: "yasb.disk.DiskWidget"
+    options:
+      label: "<span>\uf473</span> {space[used][percent]}"
+      label_alt: "<span>\uf473</span> {space[used][gb]} / {space[total][gb]}"
+      volume_label: "C"
+      update_interval: 60
+      disk_thresholds:
+        low: 50
+        medium: 75
+        high: 90
+      group_label:
+        volume_labels: ["C"]
+        show_label_name: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+      callbacks:
+        on_left: "toggle_label"
+        on_middle: "do_nothing"
+        on_right: "exec cmd /c start \"\" \"C:/Users/Dymyk/Desktop/Programs/wiztree.lnk\""
+  gpu:
+    type: "yasb.gpu.GpuWidget"
+    options:
+      label: "<span>\udb81\udd03</span> {info[utilization]}%"
+      label_alt: "<span>\udb81\udd03</span> {info[temp]}°C | {info[mem_used]}"
+      gpu_index: 0
+      update_interval: 2000
+      gpu_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  bin:
+    type: "yasb.recycle_bin.RecycleBinWidget"
+    options:
+      label: "<span>{icon}</span>{items_count}"
+      label_alt: "Items {items_count}, Total size ({items_size})"
+      icons:
+        bin_empty: "\udb82\ude7a"
+        bin_filled: "\udb82\ude79"
+      callbacks:
+        on_left: "open_bin"
+        on_right: "toggle_label"
+        on_middle: "empty_bin"
+      show_confirmation: true
+  brightness:
+    type: "yasb.brightness.BrightnessWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "Brightness {percent}%"
+      tooltip: true
+      brightness_toggle_level: [0, 50, 100]
+      brightness_icons:
+        - "\udb80\udcde"
+        - "\udb80\udcdd"
+        - "\udb80\udcdf"
+        - "\udb80\udce0"
+      brightness_menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+      callbacks:
+        on_left: "toggle_label"
+        on_middle: "do_nothing"
+        on_right: "toggle_brightness_menu"
+  open_meteo:
+    type: "yasb.open_meteo.OpenMeteoWidget"
+    options:
+      label: "<span>{icon}</span> {feelslike}"
+      label_alt: "{location}: {min_temp}↓ {max_temp}↑"
+      tooltip: true
+      update_interval: 600
+      hide_decimal: true
+      units: "metric"
+      callbacks:
+        on_left: "toggle_label"
+        on_middle: "do_nothing"
+        on_right: "toggle_card"
+      weather_card:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "none"
+        alignment: "right"
+        direction: "down"
+        icon_size: 48
+        show_hourly_forecast: true
+        time_format: "12h"
+        hourly_point_spacing: 76
+        hourly_icon_size: 24
+        icon_smoothing: true
+        temp_line_width: 2
+        current_line_color: "#8EAEE8"
+        current_line_width: 1
+        current_line_style: "dot"
+        hourly_gradient:
+          enabled: false
+          top_color: "#8EAEE8"
+          bottom_color: "#2A3E68"
+        hourly_forecast_buttons:
+          enabled: true
+          default_view: "temperature"
+          temperature_icon: "\udb81\udd99"
+          rain_icon: "\udb81\udd96"
+          snow_icon: "\udb81\udd98"
+        weather_animation:
+          enabled: false
+          snow_overrides_rain: true
+          temp_line_animation_style: "both"
+          rain_effect_intensity: 1.0
+          snow_effect_intensity: 1.0
+          scale_with_chance: true
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      label_collapsed: "\uf106"
+      label_expanded: "\uf107"
+      label_position: "left" # Can be "left" or "right"
+      icon_size: 16 # Can be any integer between 8 and 64
+      pin_click_modifier: "alt" # Can be "ctrl", "alt" or "shift"
+      show_unpinned: false
+      show_unpinned_button: true
+      show_battery: false
+      show_in_popup: 1
+      show_volume: false
+      icons_per_row: 3
+      show_network: false
+      tooltip: true
+      use_hook: false # Whether to use the new systray hook instead of the legacy systray monitor
+      hide_icons: [] # Optional, list of process names to hide (e.g. ["discord"])
+      popup:
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: None
+        alignment: "center"
+        direction: "up"
+        offset_top: 6
+        offset_left: 0
+  wallpapers:
+    type: "yasb.wallpapers.WallpapersWidget"
+    options:
+      label: "<span>\udb83\ude09</span>"
+      image_path: "C:\\Users\\Dymyk\\Pictures\\Wallpapers" # Set your path
+      change_automatically: false
+      update_interval: 60 # If change_automatically is true, update interval in seconds
+      engine:
+        enabled: true
+        animation: "diamond" # circle/slide_top/diamond/split
+      gallery:
+        enabled: true
+        blur: false
+        image_width: 350
+        image_per_page: 6
+        gallery_columns: 0 # 0 = auto, matches image_per_page for a single row
+        horizontal_position: "center"
+        vertical_position: "center"
+        position_offset: 0
+        respect_work_area: true
+        show_buttons: false
+        orientation: "landscape"
+        image_spacing: 8
+        lazy_load: true
+        lazy_load_fadein: 400
+        image_corner_radius: 0
+      callbacks:
+        on_left: "toggle_gallery"
+        on_middle: "do_nothing"
+        on_right: "change_wallpaper"
+  media:
+    type: "yasb.media.MediaWidget"
+    options:
+      label: "{title}{s}{artist}"
+      label_alt: "{title}{s}{artist}"
+      separator: " - "
+      hide_empty: true
+      callbacks:
+        on_left: "toggle_media_menu"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
+      max_field_size:
+        label: 45
+        label_alt: 30
+      show_thumbnail: false
+      controls_only: false
+      controls_left: true
+      controls_hide: true
+      thumbnail_alpha: 80
+      thumbnail_padding: 8
+      thumbnail_corner_radius: 16
+      icons:
+        prev_track: "\ue892"
+        next_track: "\ue893"
+        play: "\ue768"
+        pause: "\ue769"
+      media_menu:
+        blur: false
+        round_corners: false
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "up"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_corner_radius: 0
+        thumbnail_size: 120
+        max_title_size: 60
+        max_artist_size: 50
+        show_source: true
+      media_menu_icons:
+        play: "\udb81\udc0a"
+        pause: "\udb80\udfe4"
+        prev_track: "\udb81\udcae"
+        next_track: "\udb81\udcad"
+      scrolling_label:
+        enabled: false
+        update_interval_ms: 33
+        style: "left"  # can be "left", "right", "bounce", "bounce-ease"
+        separator: " | "
+        label_padding: 0
+        always_scroll: false
+      # Easing curve params: https://www.desmos.com/calculator/j7eamemxzi
+        ease_slope: 20
+        ease_pos: 0.8
+        ease_min: 0.5
+      progress_bar:
+        enabled: false       # Whether to enable the progress bar on the widget.
+        alignment: "bottom"  # The alignment of the progress bar inside the widget container. Can be "top", "bottom", or "center".ueee8
+  language:
+    type: "yasb.language.LanguageWidget"
+    options:
+      label: "{lang[language_code]}"
+      label_alt: "{lang[full_name]}"
+      update_interval: 1
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      language_menu:
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "up"
+        offset_top: 6
+        offset_left: 0
+        show_layout_icon: true
+        layout_icon: "\udb80\udf0c"
+  taskbar:
+    type: "yasb.taskbar.TaskbarWidget"
+    options:
+      icon_size: 0
+      tooltip: true
+      show_only_visible: true
+      strict_filtering: true
+      monitor_exclusive: true
+      animation:
+        enabled: true
+        duration: 200
+      preview:
+        enabled: true
+        width: 240
+        delay: 400
+        padding: 8
+        margin: 8
+      title_label:
+        enabled: true
+        show: "always"
+        min_length: 10
+        max_length: 30
+      ignore_apps:
+        processes: []
+        titles: []
+        classes: []
