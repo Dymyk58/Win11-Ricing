@@ -40,7 +40,6 @@ Other
 A highly configurable Windows status bar written in Python. 
 
 **⚙️ Installation:**  
-You can follow the steps below, or jump to the [**setup video**](https://www.youtube.com/watch?v=your-video-id).
 - Install [**YASB**]([(https://github.com/amnweb/yasb)])   
 - Copy the config files from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/YASB).
 - Remove the codes from **your** YASB config and paste the one you just copied.
@@ -55,7 +54,7 @@ Quick File Search & App Launcher for Windows
 **⚙️ Installation:**  
 You can follow the steps below,
 - Install [**Flow Launcher**](https://www.flowlauncher.com/).
-- Download the theme file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Flow%20Launcher).
+- Download the theme file from [**here**](https://github.com/Dymyk58/Win11-Ricing/tree/main/Flow%20Launcher).
 - Open Flow Launcher's Settings window, select **Appearance** on the sidebar, and click the "Open Theme Folder" button at the bottom.
 - Move your theme file downloaded in Step 1 to this directory, and restart Flow Launcher.
 - Again in Flow Launcher's Settings window, select **Appearance** on the sidebar, and select your Catppuccin flavor from the list of themes.
@@ -71,7 +70,7 @@ Windhawk aims to make it easier to customize Windows programs.
 
 **⚙️ Installation:**  
 - Install [**Windhawk**](https://windhawk.net/)   
-- Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Windhawk).
+- Copy the config file from [**here**](https://github.com/Dymyk58/Win11-Ricing/tree/main/Windhawk).
 - Remove the codes from the advance section in **your** Windhawk mod and paste the one you just copied.
 - Click **Save settings** for the changes to take effect.
 
@@ -79,24 +78,29 @@ Windhawk aims to make it easier to customize Windows programs.
 
 ## 👾 Terminal + Fastfetch
 > [!NOTE] 
-> If you just wanna fully use it just like I'm using then I recommend watchng the video. If you just want the config for Fastfetch then just paste the config where **your** Fastfetch config is located. If you have a PowerShell profile then just add your location and other stuff in your profile yourself as idk what you got.
+> This will overwrite your existing PowerShell profile and Windows Terminal `settings.json` without asking, so back them up first if you have your own customizations you want to keep.
 >
-> If you see **"execution of scripts is disabled on this system"**, don’t panic! Just open PowerShell as Administrator and run: 
+> If you see **"execution of scripts is disabled on this system"**, don't panic! Just open PowerShell and run: 
 > `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force`
->
-> Also if you notice that the ASCII art is not showing then try editing `"source": "C:/Users/%USERPROFILE%/.config/fastfetch/ascii.txt"` to `"source": "%USERPROFILE%/.config/fastfetch/ascii.txt"`. That should fix it. [**Credits**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/issues/1#issue-3498937609).
->
-> If you want to add FastFetch to CMD as well, then please check out this [**issue**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/issues/9#issue-3958846174). Big thanks to [**Augtive85YT**](https://github.com/Augtive85YT).
- 
-Fastfetch is a neofetch-like tool for fetching system information and displaying it in a visually appealing way. It is written mainly in C, with a focus on performance and customizability.
+
+A single PowerShell script that sets up my whole terminal experience in one go — no manual copy-pasting of config files needed.
+
+**What it does:**
+- Installs [**Oh My Posh**](https://ohmyposh.dev/), [**zoxide**](https://github.com/ajeetdsouza/zoxide), the **JetBrainsMono Nerd Font** and [**Fastfetch**](https://github.com/fastfetch-cli/fastfetch) via `winget`
+- Installs the `Terminal-Icons` PowerShell module
+- Downloads and applies my PowerShell profile to `$PROFILE`
+- Downloads the Catppuccin Macchiato Oh My Posh theme
+- Downloads and applies my Windows Terminal `settings.json`
+- Downloads my Fastfetch config and ASCII art into `%USERPROFILE%\.config\fastfetch`
+- Opts you out of PowerShell telemetry (bloatware)
 
 **⚙️ Installation:**
-- Install [**Fastfetch**](https://github.com/fastfetch-cli/fastfetch/releases) and I believe you already got the **Windows terminal** installed.
-- Copy the config file for your Terminal [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Terminal), PowerShell profile from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/PowerShell) and Fastfetch config from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Fastfetch)
-- Remove the codes from the settings.json file in **your terminal** and paste the one you just copied from above. Do the same thing for your PowerShell profile.
-- Create a **.config** *hidden* file in your C:\Users\%USERPROFILE% and create a folder called **fastfetch** inside. Copy the config and ascii code you just downloaded and paste it in that folder.
-- Change the %USERPROFILE% from the config file in the fastfetch folder and the PowerShell profile with **your username**..
-- Restart your terminal and your done. If this feel complicated just watch the [**setup video**](https://youtu.be/z3NpVq-y6jU).
+- Open PowerShell (no admin rights needed)
+- Run:
+  ```powershell
+  irm https://raw.githubusercontent.com/Dymyk58/Win11-Ricing/main/PowerShell/setup.ps1 | iex
+  ```
+- Restart your terminal once it's done, and you're set.
 
 ---
 

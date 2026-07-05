@@ -37,6 +37,9 @@ try {
     Invoke-WebRequest -Uri "$repoRaw/Microsoft.PowerShell_profile.ps1" -OutFile $PROFILE
 
     $theme = Join-Path $Home "catppuccin_macchiato.omp.json"
+    if (Test-Path $theme) {
+        attrib -h $theme
+    }
     Invoke-WebRequest -Uri "$repoRaw/catppuccin_macchiato.omp.json" -OutFile $theme
     attrib +h $theme
 
