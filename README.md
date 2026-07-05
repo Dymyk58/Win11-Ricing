@@ -7,30 +7,19 @@ A complete guide to my Windows 11 customization – from the YASB bar to all the
 
 ---
 
-## 🖼️ Screenshot
-![My Desktop Screenshot](screenshot.png)  _I will add this later, dw._
-
----
-
 ## 📑 Table of Contents
 
 | 📚 Entry | ✨ App |
 |---------------------|------------|
 | Status Bar          | [YASB](#yasb) |
-| Window Manager      | [GlazeWM](#glazewm) |
 | App Launcher        | [Flow Launcher](#flowlauncher) |
 | Taskbar             | [Windhawk](#windhawk) |
-| Text Editor         | [VSCode](#vscode) |
 | Terminal            | [Windows Terminal](#windows-terminal) |
-| Browser             | [Brave](#brave) |
+| Browser             | [Zen Browser](#zen) |
 | System Fetch        | [Fastfetch](#Fastfetch) |   
 | Shell Prompt        | [Oh My Posh](#ohmyposh) |
 | Audio Visualizer    | [Cava](#cava) |
 | Music Player        | [Spotify](#spotify) | 
-| Note Taking         | [Notesnook](#notesnook) |
-| Screen Recording    | [OBS Studio](#obsstudio) |
-| File Explorer Mod   | [ExplorerBlurMica](#ExplorerBlurMica) |
-| Other Tools         | [Extras](#extras) |
 
 Other
 
@@ -59,29 +48,13 @@ You can follow the steps below, or jump to the [**setup video**](https://www.you
 
 ---
 
-## 🪟 GlazeWM + YASB
-> [!NOTE] 
-> If your using my config then Zebar won't work as I use GlazeWM with YASB. I recommend adding those 2 lines of code back which I had deleted if you wanna use Zebar
-
-GlazeWM lets you easily organize windows and adjust their layout on the fly by using keyboard-driven commands.  
-
-**⚙️ Installation:**  
-You can follow the steps below, or jump to the [**setup video**](https://youtu.be/b57zFm3nVxA).
-- Install [**GlazeWM**](https://github.com/glzr-io/glazewm)   
-- Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/GlazeWM).
-- Remove the codes from **your** GlazeWM config and paste the one you just copied.
-- Restart **GlazeWM** for the changes to take effect.
-
----
-
 ## 🦅 Windhawk
 > [!NOTE] 
-> Right now I have just listed the advance section codes for the mods I use. If your using the taskbar config of mine then it would remove the start menu and network icon. To add them back follow [**this**](https://github.com/ramensoftware/windows-11-taskbar-styling-guide)
+> Right now I have just listed the advance section codes for the mods I use.
 
 Windhawk aims to make it easier to customize Windows programs.
 
 **⚙️ Installation:**  
-You can follow the steps below, or jump to the [**setup video**](https://youtu.be/b57zFm3nVxA) if you wanna know more about the taskbar.
 - Install [**Windhawk**](https://windhawk.net/)   
 - Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Windhawk).
 - Remove the codes from the advance section in **your** Windhawk mod and paste the one you just copied.
@@ -104,20 +77,6 @@ Installation guide was taken from [**here**](https://github.com/catppuccin/flow-
 
 ---
 
-## 📁 ExplorerBlurMica
-> [!NOTE] 
-> A few people had said that they are getting bugs and crashes by using this, so I recommend to now use it and follow the windhawk method **here** (video will be added soon)
-
-Add background Blur effect or Acrylic or Mica effect to explorer for win10 and win11
-
-**⚙️ Installation:**  
-You can follow the steps below, or jump to the [**setup video**](https://youtu.be/gpGeCZXXsbs).
-- Install [**ExplorerBlurMica**](https://github.com/Maplespe/ExplorerBlurMica/releases)   
-- Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/File%20Explorer).
-- For the next part, I'm using the default stuff so just follow the installation from [**here**](https://github.com/Maplespe/ExplorerBlurMica?tab=readme-ov-file#install) 
-
----
-
 ## 👾 Terminal + Fastfetch
 > [!NOTE] 
 > If you just wanna fully use it just like I'm using then I recommend watchng the video. If you just want the config for Fastfetch then just paste the config where **your** Fastfetch config is located. If you have a PowerShell profile then just add your location and other stuff in your profile yourself as idk what you got.
@@ -131,34 +90,13 @@ You can follow the steps below, or jump to the [**setup video**](https://youtu.b
  
 Fastfetch is a neofetch-like tool for fetching system information and displaying it in a visually appealing way. It is written mainly in C, with a focus on performance and customizability.
 
-**⚙️ Installation:**  
-You can follow the steps below, or jump to the [**setup video**](https://youtu.be/z3NpVq-y6jU) if you want your terminal to look 1:1 to mine.
+**⚙️ Installation:**
 - Install [**Fastfetch**](https://github.com/fastfetch-cli/fastfetch/releases) and I believe you already got the **Windows terminal** installed.
 - Copy the config file for your Terminal [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Terminal), PowerShell profile from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/PowerShell) and Fastfetch config from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Fastfetch)
 - Remove the codes from the settings.json file in **your terminal** and paste the one you just copied from above. Do the same thing for your PowerShell profile.
 - Create a **.config** *hidden* file in your C:\Users\%USERPROFILE% and create a folder called **fastfetch** inside. Copy the config and ascii code you just downloaded and paste it in that folder.
 - Change the %USERPROFILE% from the config file in the fastfetch folder and the PowerShell profile with **your username**..
 - Restart your terminal and your done. If this feel complicated just watch the [**setup video**](https://youtu.be/z3NpVq-y6jU).
-
----
-
-## 📝 VSCode
-> [!NOTE] 
-> This is just the base settings of my VSCode. Your(s) might look different than mine because I use many extensions along side that. I will try keeping my **Extensions** list up-to-date.
-
-Visual Studio Code (VS Code) is a free, open-source code editor by Microsoft for building and debugging modern web and cloud applications.
-
-**⚙️ Installation:**  
-You can follow the steps below, or jump to the [setup video](https://www.youtube.com/watch?v=your-video-id). (Video will be added soon)
-- Install [**VSCode**](https://code.visualstudio.com/).
-- Copy the config file:  
-  `VSCode/Settings/settings.json → %APPDATA%\Code\User\settings.json`.  
-- Restart **VSCode** for the changes to take effect.
-
-**🔧 Extensions:**
-- [Catppuccin for VSCode](https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc) - 🦌 Soothing pastel theme for VSCode.
-- [Catppuccin Icons for VSCode](https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc-icons) - 🦊 Soothing pastel icon theme for VSCode.
-- [VSCode Pets](https://marketplace.visualstudio.com/items?itemName=tonybaloney.vscode-pets) - Puts a pet in your code editor to boost productivity. 
 
 ---
 
@@ -177,21 +115,3 @@ You can follow the steps below, or jump to the [setup video](https://www.youtube
 - Restart **AppName** for the changes to take effect
 
 ---
-
-### Arc Browser
-Browser for work + aesthetic flow.  
-**Features:**
-- Minimal UI  
-- Vertical tabs  
-- Productivity features  
-
----
-
-### Extras
-Other little tools & tweaks I use.  
-- [Wallpaper Engine](#)  
-- [AutoHotKey Scripts](#)  
-- [RoundedTB](#)  
-
----
-
