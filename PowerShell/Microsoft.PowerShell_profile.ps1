@@ -3,7 +3,7 @@
 $poshTheme = if (-not [string]::IsNullOrWhiteSpace($env:POSH_THEME)) {
     $env:POSH_THEME
 } else {
-    Join-Path $Home 'cobalt2.omp.json'
+    Join-Path $Home 'catppuccin_macchiato.omp.json'
 }
 
 if (Get-Module -ListAvailable -Name Terminal-Icons) {
