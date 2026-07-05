@@ -16,16 +16,16 @@ Write-Host "Use 'Show-Help' to list all available functions" -ForegroundColor Ye
 
 # History & Colors
 Set-PSReadLineOption -PredictionViewStyle ListView -Colors @{
-    Command   = '#87CEEB'
-    Parameter = '#98FB98'
-    Operator  = '#FFB6C1'
-    Variable  = '#DDA0DD'
-    String    = '#FFDAB9'
-    Number    = '#B0E0E6'
-    Type      = '#F0E68C'
-    Comment   = '#D3D3D3'
-    Keyword   = '#8367c7'
-    Error     = '#FF6347'
+    Command   = '#7DC4E4'
+    Parameter = '#A6DA95'
+    Operator  = '#F0C6C6'
+    Variable  = '#F5BDE6'
+    String    = '#EED49F'
+    Number    = '#91D7E3'
+    Type      = '#F5A97F'
+    Comment   = '#CAD3F5'
+    Keyword   = '#C6A0F6'
+    Error     = '#ED8796'
 }
 
 #KeyBinds
