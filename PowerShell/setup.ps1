@@ -11,6 +11,15 @@
 $ErrorActionPreference = "Stop"
 $repoRaw = "https://raw.githubusercontent.com/Dymyk58/Win11-Ricing/main/PowerShell"
 
+# #requires -RunAsAdministrator sa nevynuti, ked sa skript spusti cez `irm | iex`,
+# preto kontrolujeme admin prava explicitne za behu.
+$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "Tento skript potrebuje administratorske prava." -ForegroundColor Red
+    Write-Host "Spusti Windows Terminal / PowerShell cez 'Spustit ako spravca' a skus to znova." -ForegroundColor Yellow
+    exit 1
+}
+
 function Write-Step($msg) {
     Write-Host "`n==> $msg" -ForegroundColor Cyan
 }
