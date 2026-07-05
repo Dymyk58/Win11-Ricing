@@ -298,7 +298,7 @@ widgets:
       callbacks:
         on_left: "toggle_label"
         on_middle: "do_nothing"
-        on_right: "exec cmd /c start \"\" \"C:/Users/Dymyk/Desktop/Programs/wiztree.lnk\""
+        on_right: "exec cmd /c start \"\" \"%USERPROFILE%/Desktop/Programs/wiztree.lnk\""
   gpu:
     type: "yasb.gpu.GpuWidget"
     options:
@@ -444,7 +444,7 @@ widgets:
     type: "yasb.wallpapers.WallpapersWidget"
     options:
       label: "<span>\udb83\ude09</span>"
-      image_path: "C:\\Users\\Dymyk\\Pictures\\Wallpapers" # Set your path
+      image_path: "C:\\Users\\<USERNAME>\\Pictures\\Wallpapers" # Set your path
       change_automatically: false
       update_interval: 60 # If change_automatically is true, update interval in seconds
       engine:

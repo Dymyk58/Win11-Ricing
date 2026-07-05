@@ -2,7 +2,7 @@
 <h3 align="center">✨ My Windows 11 Setup ✨</h3>
 
 <p align="center">
-A complete guide to my Windows 11 customization – from the YASB bar to all the little tweaks that make it clean, aesthetic, and productive.
+A complete guide to my Windows 11 customization
 </p>
 
 ---
@@ -48,20 +48,6 @@ You can follow the steps below, or jump to the [**setup video**](https://www.you
 
 ---
 
-## 🦅 Windhawk
-> [!NOTE] 
-> Right now I have just listed the advance section codes for the mods I use.
-
-Windhawk aims to make it easier to customize Windows programs.
-
-**⚙️ Installation:**  
-- Install [**Windhawk**](https://windhawk.net/)   
-- Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Windhawk).
-- Remove the codes from the advance section in **your** Windhawk mod and paste the one you just copied.
-- Click **Save settings** for the changes to take effect.
-
----
-
 ## 🔍 Flow Launcher
 
 Quick File Search & App Launcher for Windows
@@ -74,6 +60,20 @@ You can follow the steps below,
 - Move your theme file downloaded in Step 1 to this directory, and restart Flow Launcher.
 - Again in Flow Launcher's Settings window, select **Appearance** on the sidebar, and select your Catppuccin flavor from the list of themes.
 Installation guide was taken from [**here**](https://github.com/catppuccin/flow-launcher). Thanks :)
+
+---
+
+## 🦅 Windhawk
+> [!NOTE] 
+> Right now I have just listed the advance section codes for the mods I use.
+
+Windhawk aims to make it easier to customize Windows programs.
+
+**⚙️ Installation:**  
+- Install [**Windhawk**](https://windhawk.net/)   
+- Copy the config file from [**here**](https://github.com/SleepyCatHey/Ultimate-Win11-Setup/tree/main/Windhawk).
+- Remove the codes from the advance section in **your** Windhawk mod and paste the one you just copied.
+- Click **Save settings** for the changes to take effect.
 
 ---
 
